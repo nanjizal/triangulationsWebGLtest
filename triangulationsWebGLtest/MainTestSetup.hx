@@ -4,6 +4,6 @@ class MainTestSetup {
     static function main(){
         new MainTestSetup();
     }
-    public new(){
+    public function new(){
     }
 }
