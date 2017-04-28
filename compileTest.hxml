@@ -1,0 +1,12 @@
+-js _.js 
+-main triangulationsWebGLtest.MainTestSetup 
+-lib htmlHelper
+-lib justTriangles
+-lib justTrianglesWebGL
+-lib khaMath
+-lib triangulations
+-D js-flatten 
+# -dce full
+--next
+-cmd echo '<!DOCTYPE html><meta charset="UTF-8"><html><body><script src="_.js"></script></body></html>' >index.html
+-cmd open ./index.html
