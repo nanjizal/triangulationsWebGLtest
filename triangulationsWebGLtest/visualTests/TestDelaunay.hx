@@ -40,6 +40,8 @@ class TestDelaunay {
         }
         // render
         var ctx = new PathContext( 1, 1024, 0, 0 );
+        draw.titleTextBlue( 'Delaunay test', ctx );
+        draw.textViolet( 'notice triangle 7,5,10', ctx, 850, 200 );
         var thick = 4;
         ctx.setThickness( 4 );
         ctx.setColor( 4, 0 );
