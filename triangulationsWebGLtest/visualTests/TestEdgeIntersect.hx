@@ -15,6 +15,8 @@ class TestEdgeIntersect {
         var c = ( Geom2.edgesIntersect( v0, v1, v2, v3 ) == true )? 1: 4;
         // render
         var ctx = new PathContext( 1, 1024, 0, 0 );
+        draw.titleTextBlue( 'Edge Intersect test', ctx );
+        draw.textViolet( "Drag lines so they don't cross", ctx, 50, 350 );
         var thick = 4;
         ctx.setThickness( 4 );
         ctx.fill = false;
