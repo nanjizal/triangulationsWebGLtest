@@ -20,6 +20,7 @@ class TestQuadEdge {
         // render
         //edges.flipEdge( coEdges, sideEdges, 12 );
         var ctx = new PathContext( 1, 1024, 0, 0 );
+        draw.titleTextBlue( 'Quad Edge test', ctx );
         var thick = 4;
         ctx.setThickness( 4 );
         ctx.fill = true;
