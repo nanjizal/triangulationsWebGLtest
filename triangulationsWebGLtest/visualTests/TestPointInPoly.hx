@@ -12,6 +12,8 @@ class TestPointInPoly {
         // render
         var thick = 4;
         var ctx = new PathContext( 1, 1024, 0, 0 );
+        draw.titleTextBlue( 'Point in Polygon test', ctx );
+        draw.textViolet( "move '0' point inside shape", ctx, 50, 900 );
         ctx.setThickness( 4 );
         ctx.setColor( 0, 3 );
         ctx.fill = true; // with polyK
