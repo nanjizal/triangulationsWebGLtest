@@ -3,44 +3,27 @@ import triangulations.FillShape;
 import justTriangles.PathContext;
 import triangulationsWebGLtest.helpers.Draw;
 import triangulations.Geom2;
-class TestPointInTriangle {
+class TestPointInPoly {
     public static inline 
     function draw( shape: FillShape, draw: Draw ){
         // geom
-        var vert = shape.vertices;
-        var v0 = vert[0];
-        var v1 = vert[1];
-        var v2 = vert[2];
-        var v3 = vert[3];
-        var v4 = vert[4];
-        var inTriangle = Geom2.pointInTriangle( v1, v2, v3 );
-        vert[4] = Geom2.circumcenter( v1, v2, v3 );
-        v4 = vert[4];
-        var c0 = inTriangle(v0) ? 1 : 4;
-        var radius = Math.sqrt( v4.distSq(v1) );
+        var verts = shape.vertices;
+        var c = ( verts.pointInPolygon( shape.faces[0][0], verts[0] ) )? 4: 1;
         // render
         var thick = 4;
         var ctx = new PathContext( 1, 1024, 0, 0 );
-        draw.titleTextBlue( 'Point in triangle test', ctx );
-        draw.textViolet( 'move point in and out of triangle', ctx, 10, 150 );
-        draw.textViolet( 'also possible to drag triangle corners', ctx, 10, 1000 );
-        // draw outer circle
+        draw.titleTextBlue( 'Point in Polygon test', ctx );
+        draw.textViolet( "move '0' point inside shape", ctx, 50, 900 );
         ctx.setThickness( 4 );
-        ctx.setColor( 0, 3 );// red 
-        ctx.fill = false;// just border?
-        ctx.regularPoly( PolySides.hexacontagon, v4.x, v4.y, radius, 0 ); // 20 sides
-        ctx.moveTo( v4.x, v4.y );
-        ctx.setColor( 1, 2 );
-        ctx.fill = true; // with polyK
-        draw.faces( shape, ctx, false );
         ctx.setColor( 0, 3 );
         ctx.fill = true; // with polyK
-        draw.verticesPoints( shape, ctx, 0, 0, 5 );
-        ctx.setColor( c0, c0  );
-        draw.square( 0, ctx, v0 );
-        // geom
-        trace( 'd ' + Geom2.pointToEdgeDistSq( v1, v2 )( v0 ) );
-        // render
+        ctx.lineType = TriangleJoinCurve;
+        draw.faces( shape, ctx, false );
+        ctx.fill = true; // with polyK 
+        ctx.lineType = TriangleJoinCurve; // - default
+        ctx.setColor( c, c  );
+        draw.square( 0, ctx, verts[0] );
+        draw.verticesPoints( shape, ctx, 0, c, 5 );
         ctx.render( thick, false );
         return ctx;
     }
