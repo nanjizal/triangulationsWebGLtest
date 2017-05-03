@@ -17,6 +17,9 @@ class TestAngleCompare {
         // render
         var thick = 4;
         var ctx = new PathContext( 1, 1024, 0, 0 );
+        draw.titleTextBlue( 'Angle Compare test', ctx );
+        draw.textViolet( 'drag points around', ctx, 50, 950 );
+        draw.textViolet( 'not really sure what this does!', ctx, 50, 1020 );
         ctx.setThickness( 4 );
         ctx.setColor( 0, 3 );
         ctx.fill = true; // with polyK
