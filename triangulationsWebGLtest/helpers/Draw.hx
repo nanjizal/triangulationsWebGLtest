@@ -1,5 +1,6 @@
 package triangulationsWebGLtest.helpers;
 import justTriangles.SevenSeg;
+import justTriangles.SixteenSeg;
 import justTriangles.Triangle;
 import justTriangles.PathContext;
 import khaMath.Vector2;
@@ -22,9 +23,11 @@ abstract RainbowColors( Int ){
     var White  = 0xFFFFFF;
 }
 class Draw {
-    
+    public var showInstructions:      Bool = true;
     public var sevenSegOnPoints:      Bool = true;
     public var sevenSegOnEdges:       Bool = false;
+    public var sixteenSegBlue: SixteenSeg;
+    public var sixteenSegViolet: SixteenSeg;
     var sevenSegPoints: SevenSeg;
     var sevenSegEdges: SevenSeg;
     public var webgl: Drawing;
@@ -35,21 +38,40 @@ class Draw {
         webgl = Drawing.create( 512*2 );
         var dom = cast webgl.canvas;
         dom.style.setProperty("pointer-events","none");
-        sevenSegPoints = new justTriangles.SevenSeg( 6, 6, 0.015, 0.025 );
-        sevenSegEdges = new justTriangles.SevenSeg( 7, 5, 0.015, 0.025 );
+        sixteenSegBlue = new SixteenSeg( 5, 5, 2.5*0.015, 2.5*0.025 );
+        sixteenSegViolet = new SixteenSeg( 6, 6, 1.8*0.015, 1.8*0.025 );
+        sevenSegPoints = new SevenSeg( 6, 6, 0.015, 0.025 );
+        sevenSegEdges = new     SevenSeg( 7, 5, 0.015, 0.025 );
     }
 
     public function render(){
         Triangle.triangles = new Array<Triangle>();
+        if( showInstructions ) sixteenSegBlue.clear();
+        if( showInstructions ) sixteenSegViolet.clear();
         sevenSegPoints.clear();
         sevenSegEdges.clear();
         if( testScene != null ) testScene();
         webgl.clearVerticesAndColors();
         sevenSegPoints.render();
         sevenSegEdges.render();
+        if( showInstructions ) sixteenSegViolet.render();
+        if( showInstructions ) sixteenSegBlue.render();
         webgl.setTriangles( Triangle.triangles, cast rainbow );
     }
     
+    public function titleTextBlue( str: String, ctx: PathContext ){
+        if( !showInstructions ) return;
+        var pos = new Vector2( 10, 10 );
+        var p = pointTransform( ctx, pos );
+        sixteenSegBlue.add( str, p.x, p.y );
+    }
+    
+    public function textViolet( str: String, ctx: PathContext, x: Float, y: Float ){
+        if( !showInstructions ) return;
+        var pos = new Vector2( x, y );
+        var p = pointTransform( ctx, pos );
+        sixteenSegViolet.add( str, p.x, p.y );
+    }
     
     public inline function square( i: Int, ctx: PathContext, v: Vector2 ){
         ctx.regularPoly( PolySides.square, v.x, v.y, 10, Math.PI/4 );
@@ -65,6 +87,12 @@ class Draw {
         }
         ctx.regularPoly( PolySides.icosagon, v.x, v.y, 5, 0 ); // 20 sides
         ctx.moveTo( v.x, v.y );
+    }
+    
+    public static inline function pointTransform( ctx: PathContext, v: Vector2 ){
+        var p: justTriangles.Point = { x: v.x, y: v.y };
+        p = ctx.pt( p.x, p.y );
+        return p;
     }
     
     public function faces( fillShape: FillShape, ctx_: PathContext, showPoints: Bool = true ){
