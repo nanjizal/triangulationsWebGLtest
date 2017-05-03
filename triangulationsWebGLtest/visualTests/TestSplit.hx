@@ -33,6 +33,7 @@ class TestSplit {
         draw.sevenSegOnEdges = true;
         draw.sevenSegOnPoints = false;
         var ctx = new PathContext( 1, 1024, 0, 0 );
+        draw.titleTextBlue( 'Split test', ctx );
         var thick = 4;
         ctx.setThickness( 4 );
         ctx.setColor( 4, 0 );
