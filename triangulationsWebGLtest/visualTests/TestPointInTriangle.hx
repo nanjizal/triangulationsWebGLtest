@@ -21,6 +21,9 @@ class TestPointInTriangle {
         // render
         var thick = 4;
         var ctx = new PathContext( 1, 1024, 0, 0 );
+        draw.titleTextBlue( 'Point in triangle test', ctx );
+        draw.textViolet( 'move point in and out of triangle', ctx, 10, 150 );
+        draw.textViolet( 'also possible to drag triangle corners', ctx, 10, 1000 );
         // draw outer circle
         ctx.setThickness( 4 );
         ctx.setColor( 0, 3 );// red 
