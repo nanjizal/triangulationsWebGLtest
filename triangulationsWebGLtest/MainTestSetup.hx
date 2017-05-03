@@ -56,6 +56,7 @@ class MainTestSetup {
     }
     function sceneSetup( val: Int ){
         var scene = val;
+        draw.showInstructions = true;
         var vert: Vertices =
         switch( scene ){
             case 0:
@@ -159,6 +160,9 @@ class MainTestSetup {
         var face = shape.faces;
         var edges = shape.edges;
         ctx = new PathContext( 1, 1024, 0, 0 );
+        draw.titleTextBlue( 'Enclosing Triangle test', ctx );
+        draw.textViolet( 'rollover to detect', ctx, 850, 200 );
+        draw.textViolet( 'which triangle your in', ctx, 900, 280 );
         ctx.lineType = TriangleJoinCurve;
         var thick = 4;
         ctx.setThickness( 4 );
@@ -224,6 +228,7 @@ class MainTestSetup {
         Rupert.refineTo( vert, edges, coEdges, sideEdges, setting );
         
         ctx = new PathContext( 1, 1024, 0, 0 );
+        draw.titleTextBlue( 'Rupert test (not working yet)', ctx );
         ctx.lineType = TriangleJoinCurve;
         var thick = 4;
         ctx.setThickness( 4 );
@@ -247,5 +252,8 @@ class MainTestSetup {
     
     public function bananaTest(){
         ctx = TestShape.draw( allShapes.banana, draw );
+        draw.titleTextBlue( 'Banana test - WebGL working', ctx );
+        draw.textViolet('drag points',ctx, 700, 400 );
+        draw.textViolet( '<- use arrow keys for next test ->', ctx, 10, 950 );
     }
 }
