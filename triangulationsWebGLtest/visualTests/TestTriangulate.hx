@@ -18,6 +18,8 @@ class TestTriangulate {
         // render
         var thick = 4;
         var ctx = new PathContext( 1, 1024, 0, 0 );
+        draw.titleTextBlue( 'Triangulate test', ctx );
+        draw.textViolet( 'move points gently to re-triangulate', ctx, 10, 1000 );
         ctx.setThickness( 4 );
         ctx.fill = true;
         ctx.setColor( 0, 3 );
