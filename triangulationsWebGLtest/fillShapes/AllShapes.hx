@@ -54,8 +54,11 @@ class AllShapes{
         for( i in 0...l ) {
             shape = dataShapes[i];
             shape.fit( 1024, 1024, 120 );
-            // set the outline!
-            shape.set_fixedExternal( true );
+             // not for quadEdgeShape test
+            if( shape != quadEdgeShape ){
+                // set the outline!
+                shape.set_fixedExternal( true );
+            }
         }
     }
 }
