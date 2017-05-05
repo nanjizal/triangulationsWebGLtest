@@ -35,12 +35,39 @@ class MainTestSetup {
     var allShapes: AllShapes;
     var draw: Draw;
     var nav: Nav;
+    var edgesVertices: EdgesVertices;
     public function new(){
         allShapes = new AllShapes();
         draw = new Draw();
         interactionSurface = new InteractionSurface( 1024, 1024, '0xcccccc' );
         navSetup();
+        interactionSurface.bg.addEventListener( 'mousedown', mouseDown );
     }
+    public function mouseDown( e: MouseEvent ){
+        var p = new Vector2( e.clientX * 2, e.clientY * 2 );
+        if( edgesVertices == null ) return;
+        var i = edgesVertices.hitTestId( p, 50 );
+        if( i == null ) return;
+        if( i < 0 ) {
+            i = -i - 1; 
+            trace( 'edge found ' + i );
+            // quadEdge
+            if( scene == 6 ) {
+                if( i == 12 ) {
+                    toggle12 = !toggle12;
+                    trace( 'toggle ');
+                    draw.render();
+                }
+            } else if( scene == 9 ){
+                splitId = i;
+                draw.render();
+            }
+            
+        } else {
+            trace( 'vertex found ' + i );
+        }
+    }
+    var splitId: Int = null;
     function navSetup(){
         var startScene = 0;
         var maxScene = 10;
@@ -54,47 +81,56 @@ class MainTestSetup {
     public function animateAssign( animation: Void -> Matrix4 ) {
         draw.webgl.transformationFunc = animation;
     }
+    var scene: Int;
+    var currShape: FillShape;
     function sceneSetup( val: Int ){
-        var scene = val;
+        scene = val;
         draw.showInstructions = true;
-        var vert: Vertices =
-        switch( scene ){
+        currShape = switch( scene ){
             case 0:
                 trace( 'banana test' );
-                allShapes.banana.vertices;
+                allShapes.banana;
             case 1:
                 trace( 'edge intersect' );
-                allShapes.edgeIntersectShape.vertices;
+                allShapes.edgeIntersectShape;
             case 2:
                 trace( 'poly in point' );
-                allShapes.pointInPolyShape.vertices;
+                allShapes.pointInPolyShape;
             case 3: 
                 trace( 'angle compare');
-                allShapes.angleCompareShape.vertices;
+                allShapes.angleCompareShape;
             case 4: 
                 trace( 'point in Triangle' );
-                allShapes.pointInTriangleShape.vertices;
+                allShapes.pointInTriangleShape;
             case 5: 
                 trace( 'triangulate test' );
-                allShapes.triangulateShape.vertices;
+                allShapes.triangulateShape;
             case 6:
                 trace( 'quad edge test');
-                allShapes.quadEdgeShape.vertices;
+                allShapes.quadEdgeShape;
             case 7: 
                 trace( 'delaunay test');
-                allShapes.delaunayShape.vertices;
+                allShapes.delaunayShape;
             case 8:
                 trace('enclosing triangle test');
-                allShapes.enclosingTriangleShape.vertices;
+                allShapes.enclosingTriangleShape;
             case 9:
                 trace('split test');
-                allShapes.splitShape.vertices;
+                allShapes.splitShape;
             case 10:
                 trace('rupert test - broken');
-                allShapes.triangulateShape.vertices;
+                allShapes.triangulateShape;
             default:
                 trace( 'no test');
                 null;
+        }
+        var vert: Vertices = if( currShape != null ) {
+            currShape.vertices;
+        } else {
+            null;
+        }
+        if( currShape != null ){
+            edgesVertices = EdgesVertices.fromShape( currShape );
         }
        draw.testScene = switch( scene ){
             case 0:
@@ -137,6 +173,7 @@ class MainTestSetup {
     function pointInTriangleTest(){
         ctx = TestPointInTriangle.draw( allShapes.pointInTriangleShape, draw );
     }
+    var toggle12: Bool = false;
     function edgeIntersectTest(){
         ctx = TestEdgeIntersect.draw( allShapes.edgeIntersectShape, draw );
     }
@@ -144,7 +181,7 @@ class MainTestSetup {
         ctx = TestTriangulate.draw( allShapes.triangulateShape, draw );
     }
     function quadEdgeTest(){
-        ctx = TestQuadEdge.draw( allShapes.quadEdgeShape, draw );
+        ctx = TestQuadEdge.draw( allShapes.quadEdgeShape, draw, toggle12 );
     }
     function delaunayTest(){
         ctx = TestDelaunay.draw( allShapes.delaunayShape, draw );
@@ -202,17 +239,19 @@ class MainTestSetup {
     
     public function rupertTest(){
 
-        shape = allShapes.triangulateShape;//keyShape;
+        //shape = allShapes.triangulateShape;//keyShape;
+        shape = allShapes.delaunayShape;
         var vert = shape.vertices;
         var face = shape.faces;
         var edges = shape.edges;
-        Triangulate.triangulateSimple( vert, edges, [face[0]] );
+        //var diags = Triangulate.triangulateSimple( vert, edges, [face[0]] );
+        var diags = Triangulate.triangulateFace( vert, face[0] );
+        var all = edges.clone().add( diags );
         var coEdges = new Edges();
         var sideEdges = new Array<SideEdge>();
-        Triangulate.makeQuadEdge( vert, edges, coEdges, sideEdges );
+        Triangulate.makeQuadEdge( vert, all, coEdges, sideEdges );
         var delaunay = new Delaunay();
-        delaunay.refineToDelaunay( vert, edges, coEdges, sideEdges );
-        
+        delaunay.refineToDelaunay( vert, all, coEdges, sideEdges );
         /*
         var verticesBackup = vertices.clone();
         var edgesBackup = edges.clone();
@@ -221,12 +260,12 @@ class MainTestSetup {
         var l = edges.length;
         for ( j in 0... l ) sideEdgesBackup[j] = sideEdges[j].clone();
         */
-           
+          
         var setting = new Settings();
         //setting.maxSteinerPoints = 50;
         //setting.minAngle = 20;
-        Rupert.refineTo( vert, edges, coEdges, sideEdges, setting );
-        
+        Rupert.refineTo( vert, all, coEdges, sideEdges, setting );
+        // trace( 'edges ' + edges );
         ctx = new PathContext( 1, 1024, 0, 0 );
         draw.titleTextBlue( 'Rupert test (not working yet)', ctx );
         ctx.lineType = TriangleJoinCurve;
@@ -235,15 +274,15 @@ class MainTestSetup {
         ctx.setColor( 4, 3 );
         ctx.fill = true; // with polyK
         ctx.moveTo( 0, 0 );
-        draw.edges( edges, shape, ctx, true );
-        ctx.setColor( 0, 3 );
-        draw.faces( shape, ctx, false );
+        draw.edges( all, shape, ctx, true );
+        //ctx.setColor( 0, 3 );
+        //draw.faces( shape, ctx, false );
         ctx.render( thick, false );
         
     }
     
     public function splitTest(){
-        ctx = TestSplit.draw( allShapes.splitShape, draw );
+        ctx = TestSplit.draw( allShapes.splitShape, draw, edgesVertices, splitId );
     }
     
     public inline function transform( x: Float, y: Float ): Point {
