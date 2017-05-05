@@ -7,9 +7,10 @@ import triangulations.SideEdge;
 import justTriangles.PathContext;
 import triangulationsWebGLtest.helpers.Draw;
 import triangulations.Geom2;
+import triangulations.EdgesVertices;
 class TestSplit {
     public static inline 
-    function draw( shape: FillShape, draw: Draw ){
+    function draw( shape: FillShape, draw: Draw, edgesVertices: EdgesVertices, splitId: Int ){
         // geom
         var vert = shape.vertices;
         var face = shape.faces;
@@ -22,18 +23,15 @@ class TestSplit {
         var delaunay = new Delaunay();
         delaunay.refineToDelaunay( vert, all, coEdges, sideEdges );
         var extra = all.clone();
-        //for( i in 0...10 ){
-            Triangulate.splitEdge( vert, extra, coEdges, sideEdges, 19 );
-            Triangulate.splitEdge( vert, extra, coEdges, sideEdges, 16 );
-            Triangulate.splitEdge( vert, extra, coEdges, sideEdges, 21 );
-            //}
-        //all.clone().add( extra );
-        
+        if( splitId != null ) Triangulate.splitEdge( vert, extra, coEdges, sideEdges, splitId );
+        edgesVertices.edges = extra;
+        edgesVertices.vertices = vert;
         // render
         draw.sevenSegOnEdges = true;
         draw.sevenSegOnPoints = false;
         var ctx = new PathContext( 1, 1024, 0, 0 );
         draw.titleTextBlue( 'Split test', ctx );
+        draw.textViolet( 'click on edge number to split', ctx, 10, 1000 );
         var thick = 4;
         ctx.setThickness( 4 );
         ctx.setColor( 4, 0 );
