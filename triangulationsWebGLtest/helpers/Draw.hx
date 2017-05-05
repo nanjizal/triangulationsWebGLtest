@@ -3,6 +3,7 @@ import justTriangles.SevenSeg;
 import justTriangles.SixteenSeg;
 import justTriangles.Triangle;
 import justTriangles.PathContext;
+import justTriangles.Point;
 import khaMath.Vector2;
 import triangulations.FillShape;
 import triangulations.Edges;
@@ -75,6 +76,17 @@ class Draw {
     
     public inline function square( i: Int, ctx: PathContext, v: Vector2 ){
         ctx.regularPoly( PolySides.square, v.x, v.y, 10, Math.PI/4 );
+        ctx.moveTo( v.x, v.y );
+    }
+    
+    var mid: Vector2;
+    public inline function squareBetween( i: Int, ctx: PathContext, v0: Vector2, v1: Vector2 ){
+        mid = v0.mid( v1 );
+        squareLarge( i, ctx, mid );
+    }
+    
+    public inline function squareLarge( i: Int, ctx: PathContext, v: Vector2 ){
+        ctx.regularPoly( PolySides.square, v.x, v.y, 30, Math.PI/4 );
         ctx.moveTo( v.x, v.y );
     }
     
