@@ -1,0 +1,38 @@
+# Code to install dependancies
+
+# this project commented out depending on need.
+ -cmd haxelib git triangulationsWebGLtest https://github.com/nanjizal/triangulationsWebGLtest.git
+
+# khaMath used for Vector2 
+-cmd haxelib git khaMath https://github.com/nanjizal/khaMath.git
+
+# htmlHelper used for basic setup of Html Canvas, SVG, and WebGL
+-cmd haxelib git htmlHelper https://github.com/nanjizal/htmlHelper.git
+
+# justTrianglesWebGL used to extend justTriangles vector drawing with WebGL specifics
+-cmd haxelib git justTrianglesWebGL https://github.com/nanjizal/justTrianglesWebGL.git
+
+# justTriangles used for vector drawing
+-cmd haxelib git justTriangles https://github.com/nanjizal/justTriangles
+
+# core triangulations contains the functionality to test
+-cmd haxelib git triangulations https://github.com/nanjizal/triangulations
+
+# rather dirty reference project pure js triangulations, slightly modified, bit weird to put in haxelib but cleaner?
+-cmd haxelib git jsTriangluationsReference https://github.com/nanjizal/Triangulations-1.git
+
+# setup for my mac only
+--next
+-cmd mate /usr/local/lib/haxeLibrary/triangulations/git/
+-cmd mate /usr/local/lib/haxeLibrary/justTriangles/git/
+-cmd mate /usr/local/lib/haxeLibrary/justTrianglesWebGL/git/
+-cmd mate /usr/local/lib/haxeLibrary/khaMath/git/
+-cmd mate /usr/local/lib/haxeLibrary/htmlHelper/git
+-cmd mate /usr/local/lib/haxeLibrary/jsTriangluationsReference/git
+# make sure last one is the one where I will do most code changes
+--next
+-cmd mate /usr/local/lib/haxeLibrary/triangulationsWebGLtest/git/
+--next
+# cd to directory and compile and run in browser!
+-cmd cd /usr/local/lib/haxeLibrary/triangulationsWebGLtest/git/
+-cmd haxe compileTest.hxml
