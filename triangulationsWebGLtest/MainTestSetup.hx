@@ -24,6 +24,8 @@ import js.html.DivElement;
 import js.html.Event;
 import js.html.KeyboardEvent;
 import js.html.MouseEvent;
+// so that the start scene can be defined in the hxml
+import haxe.macro.Compiler;
 
 class MainTestSetup {
     static function main(){
@@ -69,7 +71,7 @@ class MainTestSetup {
     }
     var splitId: Int = null;
     function navSetup(){
-        var startScene = 0;
+        var startScene = Std.parseInt( Compiler.getDefine("scene") );
         var maxScene = 10;
         var mouseScenes = [8];
         nav = new Nav( startScene, maxScene, mouseScenes );
