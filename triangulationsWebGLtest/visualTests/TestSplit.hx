@@ -12,6 +12,7 @@ class TestSplit {
     public static inline 
     function draw( shape: FillShape, draw: Draw, edgesVertices: EdgesVertices, splitId: Int ){
         // geom
+        var shape = shape.clone();
         var vert = shape.vertices;
         var face = shape.faces;
         var edges = shape.edges;
