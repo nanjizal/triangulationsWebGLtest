@@ -242,7 +242,7 @@ class MainTestSetup {
     public function rupertTest(){
 
         //shape = allShapes.triangulateShape;//keyShape;
-        shape = allShapes.delaunayShape;
+        shape = allShapes.delaunayShape.clone(); // best to clone as repeat renders will break for sure.
         var vert = shape.vertices;
         var face = shape.faces;
         var edges = shape.edges;
