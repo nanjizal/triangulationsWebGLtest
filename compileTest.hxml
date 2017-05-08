@@ -6,6 +6,8 @@
 -lib khaMath
 -lib triangulations
 -D js-flatten 
+# select test starting scene ( 0 to 10 )
+-D scene=0
 # -dce full
 --next
 -cmd echo '<!DOCTYPE html><meta charset="UTF-8"><html><body><script src="_.js"></script></body></html>' >index.html
