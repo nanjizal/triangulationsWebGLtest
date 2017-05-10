@@ -4128,10 +4128,10 @@ triangulations_Edge.fromArray = function(arr) {
 };
 triangulations_Edge.prototype = {
 	isNull: function() {
-		if(this.p == null) {
+		if(this.p != null) {
 			return this.q == null;
 		} else {
-			return false;
+			return true;
 		}
 	}
 	,clone: function() {
@@ -4154,7 +4154,7 @@ triangulations_Edge.prototype = {
 		if(this.p == x) {
 			this.p = y;
 		} else {
-			this.p = y;
+			this.q = y;
 		}
 	}
 	,push: function(val) {
@@ -5985,7 +5985,7 @@ triangulationsWebGLtest_MainTestSetup.prototype = {
 			break;
 		case 10:
 			console.log("rupert test - broken");
-			tmp = this.allShapes.triangulateShape;
+			tmp = this.allShapes.keyShape;
 			break;
 		default:
 			console.log("no test");
@@ -6134,7 +6134,7 @@ triangulationsWebGLtest_MainTestSetup.prototype = {
 		ctx2.render(thick,false);
 	}
 	,rupertTest: function() {
-		this.shape = this.allShapes.delaunayShape.clone();
+		this.shape = this.allShapes.keyShape.clone();
 		var vert = this.shape.vertices;
 		var face = this.shape.faces;
 		var edges = this.shape.edges;
