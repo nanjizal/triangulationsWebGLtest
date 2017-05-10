@@ -1,7 +1,7 @@
 # triangulationsWebGLtest
 Tests for 'triangulations' haxe library using justTriangles and WebGL
 
-[Test / Demo code for triangulations]( https://github.com/nanjizal/triangulations )
+[ Test / Demo code for 'triangulations' library ]( https://github.com/nanjizal/triangulations )
 
 To get all dependancies you can modify the **dependancies.hxml** and run it from terminal if you have **Haxe** installed.
 
