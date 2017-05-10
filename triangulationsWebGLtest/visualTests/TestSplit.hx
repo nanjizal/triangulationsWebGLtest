@@ -41,7 +41,6 @@ class TestSplit {
         ctx.setColor( 0, 3 );
         ctx.moveTo( 0, 0 );
         //faces( shape, ctx );
-        draw.edges( all, shape, ctx, true );
         draw.edges( extra, shape, ctx, true );
         ctx.setColor( 1, 3 );
         ctx.moveTo( 0, 0 );
