@@ -120,7 +120,7 @@ class MainTestSetup {
                 trace('split test');
                 allShapes.splitShape;
             case 10:
-                trace('ruppert test - broken');
+                trace('ruppert test');
                 allShapes.triangulateShape;
             default:
                 trace( 'no test');
@@ -240,9 +240,7 @@ class MainTestSetup {
     }
     
     public function ruppertTest(){
-
-        //shape = allShapes.triangulateShape;//keyShape;
-        shape = allShapes.delaunayShape.clone(); // best to clone as repeat renders will break for sure.
+        shape = allShapes.triangulateShape.clone();// best to clone as repeat renders will break for sure.
         var vert = shape.vertices;
         var face = shape.faces;
         var edges = shape.edges;
@@ -254,22 +252,12 @@ class MainTestSetup {
         Triangulate.makeQuadEdge( vert, all, coEdges, sideEdges );
         var delaunay = new Delaunay();
         delaunay.refineToDelaunay( vert, all, coEdges, sideEdges );
-        /*
-        var verticesBackup = vertices.clone();
-        var edgesBackup = edges.clone();
-        var coEdgesBackup = coEdges.clone();
-        var sideEdgesBackup = [];
-        var l = edges.length;
-        for ( j in 0... l ) sideEdgesBackup[j] = sideEdges[j].clone();
-        */
-          
         var setting = new Settings();
-        //setting.maxSteinerPoints = 50;
-        //setting.minAngle = 20;
+        setting.maxSteinerPoints = 50;
+        setting.minAngle = 20;
         Ruppert.refineTo( vert, all, coEdges, sideEdges, setting );
-        // trace( 'edges ' + edges );
         ctx = new PathContext( 1, 1024, 0, 0 );
-        draw.titleTextBlue( 'Ruppert test (not working yet)', ctx );
+        draw.titleTextBlue( 'Ruppert test', ctx );
         ctx.lineType = TriangleJoinCurve;
         var thick = 4;
         ctx.setThickness( 4 );
@@ -277,8 +265,8 @@ class MainTestSetup {
         ctx.fill = true; // with polyK
         ctx.moveTo( 0, 0 );
         draw.edges( all, shape, ctx, true );
-        //ctx.setColor( 0, 3 );
-        //draw.faces( shape, ctx, false );
+        ctx.setColor( 0, 3 );
+        draw.faces( shape, ctx, false );
         ctx.render( thick, false );
         
     }
