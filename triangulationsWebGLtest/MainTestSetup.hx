@@ -166,27 +166,27 @@ class MainTestSetup {
     public var testScene: Void -> Void;
     
     function pointInPolyTest(){
-        ctx = TestPointInPoly.draw( allShapes.pointInPolyShape, draw );
+        ctx = TestPointInPoly.draw( allShapes.pointInPolyShape.clone(), draw );
     }
     // Don't really understand this one but looks like it's working!!
     function angleCompareTest(){
-        ctx = TestAngleCompare.draw( allShapes.angleCompareShape, draw );
+        ctx = TestAngleCompare.draw( allShapes.angleCompareShape.clone(), draw );
     }
     function pointInTriangleTest(){
-        ctx = TestPointInTriangle.draw( allShapes.pointInTriangleShape, draw );
+        ctx = TestPointInTriangle.draw( allShapes.pointInTriangleShape.clone(), draw );
     }
     var toggle12: Bool = false;
     function edgeIntersectTest(){
-        ctx = TestEdgeIntersect.draw( allShapes.edgeIntersectShape, draw );
+        ctx = TestEdgeIntersect.draw( allShapes.edgeIntersectShape.clone(), draw );
     }
     function triangulateTest(){
-        ctx = TestTriangulate.draw( allShapes.triangulateShape, draw );
+        ctx = TestTriangulate.draw( allShapes.triangulateShape.clone(), draw );
     }
     function quadEdgeTest(){
-        ctx = TestQuadEdge.draw( allShapes.quadEdgeShape, draw, toggle12 );
+        ctx = TestQuadEdge.draw( allShapes.quadEdgeShape.clone(), draw, toggle12 );
     }
     function delaunayTest(){
-        ctx = TestDelaunay.draw( allShapes.delaunayShape, draw );
+        ctx = TestDelaunay.draw( allShapes.delaunayShape.clone(), draw );
     }
     var all: Edges;
     var vert: Vertices;
@@ -194,7 +194,7 @@ class MainTestSetup {
     var coEdges: Edges;
     var sideEdges: Array<SideEdge>;
     public function enclosingTriangleTest(){
-        shape = allShapes.enclosingTriangleShape;
+        shape = allShapes.enclosingTriangleShape.clone();
         vert = shape.vertices;//.clone();
         var face = shape.faces;
         var edges = shape.edges;
@@ -272,7 +272,7 @@ class MainTestSetup {
     }
     
     public function splitTest(){
-        ctx = TestSplit.draw( allShapes.splitShape, draw, edgesVertices, splitId );
+        ctx = TestSplit.draw( allShapes.splitShape.clone(), draw, edgesVertices, splitId );
     }
     
     public inline function transform( x: Float, y: Float ): Point {
