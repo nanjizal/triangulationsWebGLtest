@@ -8,6 +8,8 @@
 -D js-flatten 
 # select test starting scene ( 0 to 10 )
 -D scene=0
+# used to allow Ruppert to always triangulate with s=0 to give same results.
+# -D ruppertNotRandom
 # to speed up compile and download need to review, also inline is harder to debug.
 --no-inline
 # -dce full
