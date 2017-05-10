@@ -7304,3 +7304,5 @@ khaMath_Matrix4.width = 4;
 khaMath_Matrix4.height = 4;
 triangulationsWebGLtest_MainTestSetup.main();
 })(typeof window != "undefined" ? window : typeof global != "undefined" ? global : typeof self != "undefined" ? self : this);
+
+
