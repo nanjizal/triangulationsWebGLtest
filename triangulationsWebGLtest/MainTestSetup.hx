@@ -120,7 +120,7 @@ class MainTestSetup {
                 trace('split test');
                 allShapes.splitShape;
             case 10:
-                trace('rupert test - broken');
+                trace('ruppert test - broken');
                 allShapes.triangulateShape;
             default:
                 trace( 'no test');
@@ -156,7 +156,7 @@ class MainTestSetup {
             case 9: 
                 splitTest;
             case 10:
-                rupertTest;
+                ruppertTest;
             default:
                 bananaTest;
         }
@@ -239,7 +239,7 @@ class MainTestSetup {
         ctx2.render( thick, false );
     }
     
-    public function rupertTest(){
+    public function ruppertTest(){
 
         //shape = allShapes.triangulateShape;//keyShape;
         shape = allShapes.delaunayShape.clone(); // best to clone as repeat renders will break for sure.
@@ -266,10 +266,10 @@ class MainTestSetup {
         var setting = new Settings();
         //setting.maxSteinerPoints = 50;
         //setting.minAngle = 20;
-        Rupert.refineTo( vert, all, coEdges, sideEdges, setting );
+        Ruppert.refineTo( vert, all, coEdges, sideEdges, setting );
         // trace( 'edges ' + edges );
         ctx = new PathContext( 1, 1024, 0, 0 );
-        draw.titleTextBlue( 'Rupert test (not working yet)', ctx );
+        draw.titleTextBlue( 'Ruppert test (not working yet)', ctx );
         ctx.lineType = TriangleJoinCurve;
         var thick = 4;
         ctx.setThickness( 4 );
