@@ -1,5 +1,13 @@
 # Code to install dependancies
 
+#-cmd haxelib remove triangulationsWebGLtest
+#-cmd haxelib remove khaMath
+#-cmd haxelib remove htmlHelper
+#-cmd haxelib remove justTrianglesWebGL
+#-cmd haxelib remove justTriangles
+#-cmd haxelib remove triangulations
+#-cmd haxelib remove jsTriangulataionsReference
+
 # this project commented out depending on need.
  -cmd haxelib git triangulationsWebGLtest https://github.com/nanjizal/triangulationsWebGLtest.git
 
@@ -19,7 +27,7 @@
 -cmd haxelib git triangulations https://github.com/nanjizal/triangulations
 
 # rather dirty reference project pure js triangulations, slightly modified, bit weird to put in haxelib but cleaner?
--cmd haxelib git jsTriangluationsReference https://github.com/nanjizal/Triangulations-1.git
+-cmd haxelib git jsTriangulationsReference https://github.com/nanjizal/Triangulations-1.git
 
 # setup for my mac only
 --next
