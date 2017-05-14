@@ -1,4 +1,7 @@
 # triangulationsWebGLtest
+
+*(  Note: 'Doc' folder is for documentation for triangulations library and may contain files that are licence differently and are purely used for documentation. )*
+
 Tests for 'triangulations' haxe library using justTriangles and WebGL
 
 [ Test / Demo code for 'triangulations' library ]( https://github.com/nanjizal/triangulations )
