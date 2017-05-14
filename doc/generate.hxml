@@ -1,0 +1,9 @@
+-lib triangulations
+-lib khaMath
+-D doc-gen
+--macro include('khaMath')
+--macro include('triangulations')
+-main Generate
+--no-output
+-xml output.xml
+-js foo
