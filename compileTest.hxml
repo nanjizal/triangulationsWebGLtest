@@ -1,4 +1,4 @@
--js _.js 
+-js test.js 
 -main triangulationsWebGLtest.MainTestSetup 
 -lib htmlHelper
 -lib justTriangles
